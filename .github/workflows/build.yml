@@ -6,24 +6,34 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js 16
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: npm install, build
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+    - name: npm install, build
 #        env:
 #          PRIVATE_KEY: ${{ secrets.buildPem }}
-        run: |
+      run: |
           npm install crx3
 #          cat <<< $PRIVATE_KEY > ../build.pem
 #          npx crx3 -p ../build.pem -o GetCookies.crx -x update.xml --crxURL https://raw.githubusercontent.com/Ovler-Young/GetCookies/master/GetCookies.crx src
           npx crx3 -o GetCookies.crx -x update.xml --crxURL https://raw.githubusercontent.com/Ovler-Young/GetCookies/master/GetCookies.crx src
-      - name: Set git identity
-        run: |
+    - name: Set git identity
+      run: |
           git config --global user.email "ovlertheyoung@gmail.com"
           git config --global user.name "Ovler-Young"
           git add GetCookies.crx update.xml
