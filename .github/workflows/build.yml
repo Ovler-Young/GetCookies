@@ -15,12 +15,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install, build
-        env:
-          PRIVATE_KEY: ${{ secrets.buildPem }}
+#        env:
+#          PRIVATE_KEY: ${{ secrets.buildPem }}
         run: |
           npm install crx3
-          cat <<< $PRIVATE_KEY > ../build.pem
-          npx crx3 -p ../build.pem -o GetCookies.crx -x update.xml --crxURL https://raw.githubusercontent.com/Ovler-Young/GetCookies/master/GetCookies.crx src
+#          cat <<< $PRIVATE_KEY > ../build.pem
+#          npx crx3 -p ../build.pem -o GetCookies.crx -x update.xml --crxURL https://raw.githubusercontent.com/Ovler-Young/GetCookies/master/GetCookies.crx src
+          npx crx3 -o GetCookies.crx -x update.xml --crxURL https://raw.githubusercontent.com/Ovler-Young/GetCookies/master/GetCookies.crx src
       - name: Set git identity
         run: |
           git config --global user.email "ovlertheyoung@gmail.com"
