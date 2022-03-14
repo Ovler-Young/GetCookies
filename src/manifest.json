@@ -5,7 +5,7 @@
    },
    "content_scripts": [ {
       "js": ["js/cookie.js" ],
-      "matches": ["http://*/*", "https://*/*"]
+      "matches": ["http://qiandao.180811.xyz/*", "https://qiandao.180811.xyz/*", "http://checkin.180811.xyz/*", "https://checkin.180811.xyz/*"]
    } ],
    "default_locale": "en",
    "description": "__MSG_description__",
@@ -19,5 +19,5 @@
    "permissions": [ "cookies", "tabs", "http://*/*", "https://*/*"],
    "name": "__MSG_appName__",
    "version": "0.0.8",
-   "update_url": "https://raw.githubusercontent.com/tofuliang/GetCookies/master/update.xml"
+   "update_url": "https://raw.githubusercontent.com/Ovler-Young/GetCookies/master/update.xml"
 }
